@@ -1,14 +1,24 @@
-import { Text, View } from "react-native";
+import { Redirect } from "expo-router";
+import { ActivityIndicator, Text, View } from "react-native";
+import { useAuthHydration } from "../hooks/useAuthHydration";
+import { useAuthStore } from "../store/authStore";
 
 export default function Index() {
-  return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-xl font-bold text-blue-500">
-        Welcome to Nativewind!
-      </Text>
-      <Text className="mt-2 text-base text-sky-600">
-        This is a React Native app using Tailwind CSS with Nativewind.
-      </Text>
-    </View>
-  );
+  const hydrated = useAuthHydration();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
+  if (!hydrated) {
+    return (
+      <View className="flex-1 items-center justify-center bg-white">
+        <ActivityIndicator size="large" color="#2563eb" />
+        <Text className="mt-4 text-sm text-slate-500">Loading...</Text>
+      </View>
+    );
+  }
+
+  if (isAuthenticated) {
+    return <Redirect href="/(app)/home" />;
+  }
+
+  return <Redirect href="/(auth)/login" />;
 }

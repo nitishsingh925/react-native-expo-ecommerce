@@ -1,6 +1,6 @@
-# Welcome to your Expo app 👋
+# React Native Expo E-commerce
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern React Native e-commerce application built with Expo, TypeScript, Expo Router, NativeWind (Tailwind CSS), TanStack Query, Zustand, and the [FakeStoreAPI](https://fakestoreapi.com) REST API.
 
 ## Get started
 
