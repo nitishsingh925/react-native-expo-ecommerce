@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useAuthStore } from "../store/authStore";
 
 export const api = axios.create({
   baseURL: "https://fakestoreapi.com",
@@ -9,6 +10,17 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use(async (config) => {
-  // Attach auth token if available
+  const token = useAuthStore.getState().token;
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
   return config;
 });
+
+export function proxiedImageUrl(originalUrl: string): string {
+  if (!originalUrl) return originalUrl;
+  return originalUrl.replace(
+    "https://fakestoreapi.com/img/",
+    "https://fakestoreapi.com/img/",
+  );
+}
